@@ -32,13 +32,6 @@ const todosSlice = createSlice({
     todosGetSuccess(state, { payload }) {
       state.loading = false;
       payload.todos.forEach((todo: Todo, index: number) => {
-        // Set entity to state
-        state.entities[todo.id] = todo;
-
-        // Set pagination
-        state.pagination[state.page * state.pageSize - state.pageSize + index] =
-          todo.id;
-
         // Set tracking
         state.entitiesTrack.unshift(todo.id);
         if (state.entitiesTrack.length > state.maxThreshold) {
@@ -48,6 +41,13 @@ const todosSlice = createSlice({
           delete state.entities[lastItem];
           state.entitiesTrack = state.entitiesTrack.slice(0, position);
         }
+        // Set entity to state
+        state.entities[todo.id] = todo;
+
+        // Set pagination
+        state.pagination[state.page * state.pageSize - state.pageSize + index] =
+          todo.id;
+
       });
     },
   },

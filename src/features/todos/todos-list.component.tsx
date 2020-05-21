@@ -3,6 +3,7 @@ import { Todo } from "../../shared/models/todo.model";
 
 interface TodosListProps {
   todos: Todo[];
+  page: number;
   changePage: any;
 }
 const TodosList: React.FunctionComponent<TodosListProps> = (
@@ -21,13 +22,28 @@ const TodosList: React.FunctionComponent<TodosListProps> = (
       <div>
         <ul>
           <li>
-            <button onClick={() => props.changePage(1, 3)}>page 1</button>
+            <button
+              disabled={props.page === 1}
+              onClick={() => props.changePage(1, 3)}
+            >
+              page 1
+            </button>
           </li>
           <li>
-            <button onClick={() => props.changePage(2, 3)}>page 2</button>
+            <button
+              disabled={props.page === 2}
+              onClick={() => props.changePage(2, 3)}
+            >
+              page 2
+            </button>
           </li>
           <li>
-            <button onClick={() => props.changePage(3, 3)}>page 3</button>
+            <button
+              disabled={props.page === 3}
+              onClick={() => props.changePage(3, 3)}
+            >
+              page 3
+            </button>
           </li>
         </ul>
       </div>
