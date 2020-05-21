@@ -6,6 +6,7 @@ export interface TodosState {
   loading: boolean;
   page: number;
   pageSize: 3;
+  total: number;
   pagination: number[];
   entitiesTrack: number[];
   maxThreshold: number;
@@ -16,6 +17,7 @@ export const initialState: TodosState = {
   entities: {},
   page: 1,
   pageSize: 3,
+  total: 0,
   loading: false,
   pagination: [],
   entitiesTrack: [],
@@ -49,6 +51,9 @@ const todosSlice = createSlice({
         // Set pagination
         state.pagination[state.page * state.pageSize - state.pageSize + index] =
           todo.id;
+
+        // Set total
+        state.total = payload.total;
       });
     },
     todosGetFailed(state, { payload }) {

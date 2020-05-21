@@ -1,10 +1,14 @@
 import { Todo } from "../models/todo.model";
 
 export class TodosService {
-  static todosGet(page: number, pageSize: number): Promise<Todo[]> {
+  static todosGet(
+    page: number,
+    pageSize: number
+  ): Promise<{ total: number; todos: Todo[] }> {
     return new Promise((resolve) => {
-      resolve(
-        [
+      resolve({
+        total: 9,
+        todos: [
           { id: 1, title: "first" },
           { id: 2, title: "second" },
           { id: 3, title: "third" },
@@ -14,8 +18,8 @@ export class TodosService {
           { id: 7, title: "777" },
           { id: 8, title: "888" },
           { id: 9, title: "999" },
-        ].slice(page * pageSize - pageSize, page * pageSize)
-      );
+        ].slice(page * pageSize - pageSize, page * pageSize),
+      });
     });
   }
 

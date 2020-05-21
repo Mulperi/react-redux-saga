@@ -8,14 +8,14 @@ import {
   todosDeleteSuccess,
   todosDeleteFailed,
 } from "../reducers/todos.reducer";
-import { Todo } from "../../shared/models/todo.model";
 
 function* todosGetEffect(action: any) {
   const { page, pageSize } = action.payload;
   try {
-    const todos: Todo[] = yield call(TodosService.todosGet, page, pageSize);
+    const { total, todos } = yield call(TodosService.todosGet, page, pageSize);
     yield put(
       todosGetSuccess({
+        total,
         todos,
       })
     );
