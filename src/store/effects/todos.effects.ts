@@ -1,6 +1,10 @@
 import { put, takeEvery, call } from "redux-saga/effects";
 import { TodosService } from "../../shared/services/todos.service";
-import { todosGet, todosGetSuccess } from "../reducers/todos.reducer";
+import {
+  todosGet,
+  todosGetSuccess,
+  todosFailed,
+} from "../reducers/todos.reducer";
 
 const todosService = new TodosService();
 
@@ -13,9 +17,8 @@ function* todosGetEffect(action: any) {
         todos,
       })
     );
-  } catch (error) {
-    console.log(error);
-    yield put({ type: "LOGIN_ERROR", error });
+  } catch (errorMessage) {
+    yield put(todosFailed({ errorMessage }));
   }
 }
 

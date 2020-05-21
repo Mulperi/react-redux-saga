@@ -9,6 +9,7 @@ export interface TodosState {
   pagination: number[];
   entitiesTrack: number[];
   maxThreshold: number;
+  errorMessage: string | null;
 }
 
 export const initialState: TodosState = {
@@ -19,6 +20,7 @@ export const initialState: TodosState = {
   pagination: [],
   entitiesTrack: [],
   maxThreshold: 6,
+  errorMessage: null,
 };
 
 const todosSlice = createSlice({
@@ -32,29 +34,32 @@ const todosSlice = createSlice({
     todosGetSuccess(state, { payload }) {
       state.loading = false;
       payload.todos.forEach((todo: Todo, index: number) => {
-        // Set tracking
+        // Update tracking and remove items if threshold exceeded
         state.entitiesTrack.unshift(todo.id);
         if (state.entitiesTrack.length > state.maxThreshold) {
           const position = state.entitiesTrack.length - 1;
           const lastItem = state.entitiesTrack[position];
-          console.log("lastItem", lastItem);
           delete state.entities[lastItem];
           state.entitiesTrack = state.entitiesTrack.slice(0, position);
         }
+
         // Set entity to state
         state.entities[todo.id] = todo;
 
         // Set pagination
         state.pagination[state.page * state.pageSize - state.pageSize + index] =
           todo.id;
-
       });
+    },
+    todosFailed(state, { payload }) {
+      state.loading = false;
+      state.errorMessage = payload.errorMessage;
     },
   },
 });
 
 export function todosUpdateEntitiesTrack() {}
 
-export const { todosGet, todosGetSuccess } = todosSlice.actions;
+export const { todosGet, todosGetSuccess, todosFailed } = todosSlice.actions;
 
 export default todosSlice.reducer;
