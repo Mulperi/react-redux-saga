@@ -1,13 +1,15 @@
 import React from "react";
-import Navigation from "./shared/components/Navigation.component";
+import Navigation from "./shared/components/navigation.component";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Home from "./features/home/home.component";
 import Todos from "./features/todos/todos.component";
+import Header from "./shared/components/header.component";
+import Footer from "./shared/components/footer.component";
 
 function App() {
   return (
-    <React.Fragment>
-      <header>header</header>
+    <div className="app-container">
+      <Header />
       <Navigation />
       <main>
         <Switch>
@@ -18,7 +20,8 @@ function App() {
           </Route>
         </Switch>
       </main>
-    </React.Fragment>
+      <Footer />
+    </div>
   );
 }
 

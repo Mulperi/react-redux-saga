@@ -22,7 +22,7 @@ const Todos: React.FunctionComponent<any> = () => {
 
   return (
     <React.Fragment>
-      <section>todos feature</section>
+      <section>Todos Feature Component</section>
       <section>
         <Switch>
           <Route path="/">

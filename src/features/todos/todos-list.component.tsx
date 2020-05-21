@@ -11,7 +11,7 @@ const TodosList: React.FunctionComponent<TodosListProps> = (
 ) => {
   return (
     <div>
-      <div>TodosList</div>
+      <div>TodosList Component</div>
       <ul>
         {props.todos.map((todo, index) => (
           <li key={index}>
