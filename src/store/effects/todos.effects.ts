@@ -1,20 +1,26 @@
-import { put, takeEvery } from "redux-saga/effects";
-import * as todos from "../../store/reducers/todos.reducer";
+import { put, takeEvery, call } from "redux-saga/effects";
+import { TodosService } from "../../shared/services/todos.service";
+import { todosGet, todosGetSuccess } from "../reducers/todos.reducer";
 
-const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+const todosService = new TodosService();
 
-export function* incrementAsync() {
-  yield delay(1000);
-  yield put(
-    todos.getSuccess({
-      todos: [
-        { id: 2, title: "second" },
-        { id: 3, title: "third" },
-      ],
-    })
-  );
+function* todosGetEffect(action: any) {
+  const { page, pageSize } = action.payload;
+  try {
+    const todos = yield call(todosService.getTodos, page, pageSize);
+    yield put(
+      todosGetSuccess({
+        todos,
+      })
+    );
+  } catch (error) {
+    console.log(error);
+    yield put({ type: "LOGIN_ERROR", error });
+  }
 }
 
-export function* watchTodosActions() {
-  yield takeEvery(todos.get, incrementAsync);
+function* watchTodosActions() {
+  yield takeEvery(todosGet, todosGetEffect);
 }
+
+export default watchTodosActions;

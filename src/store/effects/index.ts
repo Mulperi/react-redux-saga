@@ -1,4 +1,4 @@
-import { watchTodosActions } from "./todos.effects";
+import watchTodosActions from "./todos.effects";
 import { all } from "redux-saga/effects";
 
 /**
