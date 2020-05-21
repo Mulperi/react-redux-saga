@@ -1,15 +1,19 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navigation: React.FunctionComponent<any> = () => {
   return (
     <nav>
       <ul>
         <li>
-          <Link to={"/home"}>home</Link>
+          <NavLink activeClassName="nav--link-active" to={"/home"}>
+            home
+          </NavLink>
         </li>
         <li>
-          <Link to={"/todos"}>todos</Link>
+          <NavLink activeClassName="nav--link-active" to={"/todos"}>
+            todos
+          </NavLink>
         </li>
       </ul>
     </nav>

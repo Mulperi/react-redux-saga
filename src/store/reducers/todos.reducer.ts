@@ -51,15 +51,32 @@ const todosSlice = createSlice({
           todo.id;
       });
     },
-    todosFailed(state, { payload }) {
+    todosGetFailed(state, { payload }) {
       state.loading = false;
       state.errorMessage = payload.errorMessage;
+    },
+    todosDelete(state, { payload }) {
+      state.loading = true;
+    },
+    todosDeleteSuccess(state, { payload }) {
+      state.loading = false;
+      delete state.entities[payload.id];
+    },
+    todosDeleteFailed(state, { payload }) {
+      state.loading = false;
     },
   },
 });
 
 export function todosUpdateEntitiesTrack() {}
 
-export const { todosGet, todosGetSuccess, todosFailed } = todosSlice.actions;
+export const {
+  todosGet,
+  todosGetSuccess,
+  todosGetFailed,
+  todosDelete,
+  todosDeleteSuccess,
+  todosDeleteFailed,
+} = todosSlice.actions;
 
 export default todosSlice.reducer;

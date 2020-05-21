@@ -16,13 +16,16 @@ const Todos: React.FunctionComponent<any> = () => {
   useEffect(() => {
     dispatch(todosGet({ page: 1, pageSize: 3 }));
   }, [dispatch]);
+
   const changePage = (page: number, pageSize: number) => {
     dispatch(todosGet({ page, pageSize }));
   };
 
   return (
     <React.Fragment>
-      <section>Todos Feature Component</section>
+      <section>
+        <h2>Todos Feature Component</h2>
+      </section>
       <section>
         <Switch>
           <Route path="/">
